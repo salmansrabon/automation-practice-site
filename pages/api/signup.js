@@ -7,13 +7,17 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { firstName, lastName, email, phoneNumber, password, gender, agreement } = req.body || {};
+  const { firstName, lastName, email, phoneNumber, password, gender, agreement, birthdate, district, photo, bloodGroup } = req.body || {};
 
   if (!firstName || !lastName || !email || !phoneNumber || !password || !gender) {
-    return res.status(400).json({ error: 'All fields are required' });
+    return res.status(400).json({ error: 'All required fields are missing' });
   }
   if (!agreement) {
     return res.status(400).json({ error: 'You must accept the agreement' });
+  }
+
+  if (!bloodGroup) {
+    return res.status(400).json({ error: 'Blood group is required' });
   }
 
   const exists = await findUserByEmail(email);
@@ -30,7 +34,11 @@ export default async function handler(req, res) {
     email: String(email).toLowerCase().trim(),
     phoneNumber: String(phoneNumber).trim(),
     gender: String(gender),
+    birthdate: birthdate ? String(birthdate) : null,
+    district: district ? String(district) : null,
+    bloodGroup: bloodGroup ? String(bloodGroup) : null,
     passwordHash,
+    photo: photo || null,
     createdAt: new Date().toISOString(),
   };
 

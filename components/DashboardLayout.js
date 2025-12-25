@@ -27,6 +27,9 @@ export default function DashboardLayout({ children }) {
               <li className="nav-item">
                 <Link className={`nav-link ${isActive('/dashboard/users') ? 'active' : ''}`} href="/dashboard/users">Users</Link>
               </li>
+              <li className="nav-item">
+                <Link className={`nav-link ${isActive('/dashboard/add-user') ? 'active' : ''}`} href="/dashboard/add-user">Add User</Link>
+              </li>
             </ul>
             <div className="dropdown">
               <button className="btn btn-outline-light dropdown-toggle" type="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
