@@ -20,6 +20,11 @@ export default function SignupPage() {
 
   const setField = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
+  const validatePhone = (phone) => {
+    if (!phone) return true; // optional field
+    return /^01\d{9}$/.test(phone);
+  };
+
   useEffect(() => {
     if (countdown === null) return;
     
@@ -37,6 +42,10 @@ export default function SignupPage() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (form.phoneNumber && !validatePhone(form.phoneNumber)) {
+      setError('Phone number must start with 01 and be 11 digits (e.g., 01500000000)');
+      return;
+    }
     setError('');
     setSuccess('');
     setLoading(true);
@@ -92,8 +101,9 @@ export default function SignupPage() {
                   <input type="email" className="form-control" value={form.email} onChange={(e) => setField('email', e.target.value)} required placeholder="you@example.com" />
                 </div>
                 <div className="col-md-6 mb-3">
-                  <label className="form-label">Phone Number</label>
-                  <input className="form-control" value={form.phoneNumber} onChange={(e) => setField('phoneNumber', e.target.value)} required placeholder="123-456-7890" />
+                  <label className="form-label">Phone Number <span className="text-muted small">(optional)</span></label>
+                  <input className="form-control" value={form.phoneNumber} onChange={(e) => setField('phoneNumber', e.target.value)} placeholder="01500000000" title="Must start with 01 and be 11 digits" />
+                  {form.phoneNumber && !validatePhone(form.phoneNumber) && <small className="text-danger">Must start with 01 and be 11 digits</small>}
                 </div>
               </div>
               <div className="mb-3">
@@ -101,7 +111,11 @@ export default function SignupPage() {
                 <input type="password" className="form-control" value={form.password} onChange={(e) => setField('password', e.target.value)} required placeholder="Create a password" />
               </div>
               <div className="mb-3">
-                <label className="form-label me-3">Gender</label>
+                <label className="form-label me-3">Gender <span className="text-muted small">(optional)</span></label>
+                <div className="form-check form-check-inline">
+                  <input className="form-check-input" type="radio" name="gender" id="genderNone" checked={form.gender === ''} onChange={() => setField('gender', '')} />
+                  <label className="form-check-label" htmlFor="genderNone">Prefer not to say</label>
+                </div>
                 <div className="form-check form-check-inline">
                   <input className="form-check-input" type="radio" name="gender" id="genderMale" checked={form.gender === 'Male'} onChange={() => setField('gender', 'Male')} />
                   <label className="form-check-label" htmlFor="genderMale">Male</label>

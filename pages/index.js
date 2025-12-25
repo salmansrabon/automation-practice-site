@@ -45,11 +45,11 @@ export default function LoginPage() {
             <form onSubmit={onSubmit} className="needs-validation" noValidate>
               <div className="mb-3">
                 <label className="form-label">Email</label>
-                <input type="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="you@example.com" />
+                <input type="email" id="email" className="form-control" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="you@example.com" />
               </div>
               <div className="mb-3">
                 <label className="form-label">Password</label>
-                <input type="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Enter password" />
+                <input type="password" id="password" className="form-control" value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="Enter password" />
               </div>
               <div className="d-grid gap-2">
                 <button className="btn btn-primary" type="submit" disabled={loading}>

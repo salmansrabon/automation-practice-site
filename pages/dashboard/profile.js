@@ -21,6 +21,11 @@ export default function ProfilePage({ user: initialUser }) {
 
   const setField = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
+  const validatePhone = (phone) => {
+    if (!phone) return true; // optional field
+    return /^01\d{9}$/.test(phone);
+  };
+
   const handleEdit = () => {
     setIsEdit(true);
     setError('');
@@ -64,6 +69,10 @@ export default function ProfilePage({ user: initialUser }) {
   };
 
   const handleSave = async () => {
+    if (form.phoneNumber && !validatePhone(form.phoneNumber)) {
+      setError('Phone number must start with 01 and be 11 digits');
+      return;
+    }
     setLoading(true);
     setError('');
     setSuccess('');
@@ -158,12 +167,15 @@ export default function ProfilePage({ user: initialUser }) {
                   <div className="form-text">Email cannot be changed</div>
                 </div>
                 <div className="col-md-6 mb-3">
-                  <label className="form-label">Phone</label>
+                  <label className="form-label">Phone <span className="text-muted small">(optional)</span></label>
                   <input
                     className="form-control"
                     value={form.phoneNumber}
                     onChange={(e) => setField('phoneNumber', e.target.value)}
+                    placeholder="01500000000"
+                    title="Must start with 01 and be 11 digits"
                   />
+                  {form.phoneNumber && !validatePhone(form.phoneNumber) && <small className="text-danger">Must start with 01 and be 11 digits</small>}
                 </div>
               </div>
 

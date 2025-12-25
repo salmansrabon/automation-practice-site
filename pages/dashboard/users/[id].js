@@ -46,7 +46,16 @@ export default function UserDetailPage({ user, canEdit }) {
     reader.readAsDataURL(file);
   };
 
+  const validatePhone = (phone) => {
+    if (!phone) return true; // optional field
+    return /^01\d{9}$/.test(phone);
+  };
+
   const save = async () => {
+    if (form.phoneNumber && !validatePhone(form.phoneNumber)) {
+      setError('Phone number must start with 01 and be 11 digits');
+      return;
+    }
     if (!userState) return;
     setSaving(true);
     setError('');
@@ -121,8 +130,9 @@ export default function UserDetailPage({ user, canEdit }) {
                     <input type="email" className="form-control" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} />
                   </div>
                   <div className="col-md-6">
-                    <label className="form-label">Phone</label>
-                    <input className="form-control" value={form.phoneNumber} onChange={(e) => setForm({ ...form, phoneNumber: e.target.value })} />
+                    <label className="form-label">Phone <span className="text-muted small">(optional)</span></label>
+                    <input className="form-control" value={form.phoneNumber} onChange={(e) => setForm({ ...form, phoneNumber: e.target.value })} placeholder="01500000000" title="Must start with 01 and be 11 digits" />
+                    {form.phoneNumber && !validatePhone(form.phoneNumber) && <small className="text-danger">Must start with 01 and be 11 digits</small>}
                   </div>
                   <div className="col-md-6">
                     <label className="form-label">Gender</label>

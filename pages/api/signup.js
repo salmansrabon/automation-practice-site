@@ -9,15 +9,14 @@ export default async function handler(req, res) {
 
   const { firstName, lastName, email, phoneNumber, password, gender, agreement, birthdate, district, photo, bloodGroup } = req.body || {};
 
-  if (!firstName || !lastName || !email || !phoneNumber || !password || !gender) {
-    return res.status(400).json({ error: 'All required fields are missing' });
+  if (!firstName || !lastName || !email || !password) {
+    return res.status(400).json({ error: 'First name, last name, email, and password are required' });
   }
   if (!agreement) {
     return res.status(400).json({ error: 'You must accept the agreement' });
   }
-
-  if (!bloodGroup) {
-    return res.status(400).json({ error: 'Blood group is required' });
+  if (phoneNumber && !/^01\d{9}$/.test(phoneNumber)) {
+    return res.status(400).json({ error: 'Phone number must start with 01 and be 11 digits' });
   }
 
   const exists = await findUserByEmail(email);

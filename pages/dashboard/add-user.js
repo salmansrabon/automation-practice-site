@@ -28,6 +28,11 @@ export default function AddUserPage() {
 
   const setField = (k, v) => setForm((f) => ({ ...f, [k]: v }));
 
+  const validatePhone = (phone) => {
+    if (!phone) return true; // optional field
+    return /^01\d{9}$/.test(phone);
+  };
+
   const loadBloodGroups = () => {
     if (bloodOptions.length === 0) {
       setBloodOptions(bloodGroups);
@@ -59,6 +64,10 @@ export default function AddUserPage() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (form.phoneNumber && !validatePhone(form.phoneNumber)) {
+      setError('Phone number must start with 01 and be 11 digits (e.g., 01500000000)');
+      return;
+    }
     setError('');
     setSuccess('');
     setLoading(true);
@@ -155,14 +164,15 @@ export default function AddUserPage() {
                     />
                   </div>
                   <div className="col-md-6 mb-3">
-                    <label className="form-label">Phone Number</label>
+                    <label className="form-label">Phone Number <span className="text-muted small\">(optional)</span></label>
                     <input
                       className="form-control"
                       value={form.phoneNumber}
                       onChange={(e) => setField('phoneNumber', e.target.value)}
-                      required
-                      placeholder="123-456-7890"
+                      placeholder="01500000000"
+                      title="Must start with 01 and be 11 digits"
                     />
+                    {form.phoneNumber && !validatePhone(form.phoneNumber) && <small className="text-danger">Must start with 01 and be 11 digits</small>}
                   </div>
                 </div>
 
