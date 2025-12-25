@@ -57,7 +57,7 @@ export default function LoginPage() {
                 </button>
                 <div className="text-center">
                   <span className="text-muted me-1">New here?</span>
-                  <Link href="/signup" target="_blank">Signup</Link>
+                  <Link href="/signup">Signup</Link>
                 </div>
               </div>
             </form>
