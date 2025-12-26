@@ -101,7 +101,7 @@ export default function ProfilePage({ user: initialUser }) {
           <div className="d-flex justify-content-between align-items-center mb-3">
             <h2 className="card-title mb-0">Profile</h2>
             {!isEdit && (
-              <button className="btn btn-primary btn-sm" onClick={handleEdit}>
+              <button name="Edit" className="btn btn-primary btn-sm" onClick={handleEdit}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-pencil me-1" viewBox="0 0 16 16">
                   <path d="M12.146.292a.5.5 0 0 1 .708 0l3.854 3.852a.5.5 0 0 1 0 .708l-10.851 10.851a.5.5 0 0 1-.242.135l-4.244.682a.5.5 0 0 1-.619-.619l.682-4.244a.5.5 0 0 1 .135-.242l10.851-10.851zm.162.97a.146.146 0 0 0-.207 0L2.712 12.146a.147.147 0 0 0-.035.077l-.713 4.424 4.424-.713a.146.146 0 0 0 .077-.035l10.851-10.851a.146.146 0 0 0 0-.207l-3.854-3.852Z"/>
                 </svg>

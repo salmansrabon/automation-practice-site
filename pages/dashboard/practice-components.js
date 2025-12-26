@@ -1,14 +1,41 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../components/DashboardLayout';
 const { getUserFromReq } = require('../../lib/auth');
 
 export default function PracticeComponentsPage() {
   const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (e) => {
+      if (e.key === 'Enter') {
+        handleClickOrEnter();
+      }
+    };
+
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleGlobalKeyDown);
+    };
+  }, []);
+
   const openNewTab = () => {
     window.open('https://example.com', '_blank', 'noopener,noreferrer');
   };
   const openNewWindow = () => {
     window.open('https://example.com', '_blank', 'noopener,noreferrer,width=900,height=700');
+  };
+
+  const handleDoubleClick = () => {
+    alert('double clicked!');
+  };
+
+  const handleRightClick = (e) => {
+    e.preventDefault();
+    alert('context clicked!');
+  };
+
+  const handleClickOrEnter = () => {
+    alert('Enter event pressed!');
   };
 
   return (
@@ -51,6 +78,16 @@ export default function PracticeComponentsPage() {
             <p className="text-muted small mb-3">Embedded page below.</p>
             <div className="ratio ratio-16x9 border rounded-3 overflow-hidden bg-white">
               <iframe title="Embedded Example" src="http://localhost:3000" style={{ border: '0' }} allowFullScreen></iframe>
+            </div>
+          </div>
+
+          <div className="border rounded-3 p-3 bg-light mt-3">
+            <h5 className="mb-2">Event Practice Buttons</h5>
+            <p className="text-muted small mb-3">Practice different mouse and keyboard events.</p>
+            <div className="d-flex flex-wrap gap-2">
+              <button className="btn btn-warning" onDoubleClick={handleDoubleClick}>Double Click Me</button>
+              <button className="btn btn-info" onContextMenu={handleRightClick}>Right Click Me</button>
+              <button className="btn btn-danger" onClick={handleClickOrEnter}>Click or Press Enter</button>
             </div>
           </div>
         </div>
