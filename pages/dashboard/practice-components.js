@@ -22,6 +22,7 @@ export default function PracticeComponentsPage() {
   const [showModal, setShowModal] = useState(false);
   const [dateTime, setDateTime] = useState(() => formatDateTimeLocal(new Date()));
   const [dateOnly, setDateOnly] = useState(new Date());
+  const [modalMessage, setModalMessage] = useState('');
 
   useEffect(() => {
     const handleGlobalKeyDown = (e) => {
@@ -56,6 +57,21 @@ export default function PracticeComponentsPage() {
     alert('Enter event pressed!');
   };
 
+  const openModal = () => {
+    setModalMessage('');
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setModalMessage('Modal Closed!');
+  };
+
+  const handleSaveModal = () => {
+    setShowModal(false);
+    setModalMessage('Data saved!');
+  };
+
   return (
     <DashboardLayout>
       <div className="card shadow-lg border-0 rounded-4">
@@ -70,7 +86,7 @@ export default function PracticeComponentsPage() {
               <div className="border rounded-3 p-3 h-100 bg-light">
                 <h5 className="mb-2">New Tab</h5>
                 <p className="text-muted small mb-3">Opens example.com in a separate browser tab.</p>
-                <button className="btn btn-primary" onClick={openNewTab}>Open New Tab</button>
+                <button id="newTabBtn" className="btn btn-primary" onClick={openNewTab}>Open New Tab</button>
               </div>
             </div>
 
@@ -78,37 +94,19 @@ export default function PracticeComponentsPage() {
               <div className="border rounded-3 p-3 h-100 bg-light">
                 <h5 className="mb-2">New Window</h5>
                 <p className="text-muted small mb-3">Opens example.com in a new window with set dimensions.</p>
-                <button className="btn btn-outline-primary" onClick={openNewWindow}>Open New Window</button>
+                <button id="newWindowBtn" className="btn btn-outline-primary" onClick={openNewWindow}>Open New Window</button>
               </div>
             </div>
 
             <div className="col-md-4">
               <div className="border rounded-3 p-3 h-100 bg-light">
                 <h5 className="mb-2">Modal</h5>
-                <p className="text-muted small mb-3">Opens a Bootstrap-style modal with content.</p>
-                <button className="btn btn-success" onClick={() => setShowModal(true)}>Open Modal</button>
+                <p  className="text-muted small mb-3">Opens a Bootstrap-style modal with content.</p>
+                <button id="openModalBtn" className="btn btn-success" onClick={openModal}>Open Modal</button>
+                {modalMessage && <div className="mt-2 text-success fw-semibold">{modalMessage}</div>}
               </div>
             </div>
           </div>
-
-          <div className="border rounded-3 p-3 bg-light">
-            <h5 className="mb-2">Iframe</h5>
-            <p className="text-muted small mb-3">Embedded page below.</p>
-            <div className="ratio ratio-16x9 border rounded-3 overflow-hidden bg-white">
-              <iframe title="Embedded Example" src="http://localhost:3000" style={{ border: '0' }} allowFullScreen></iframe>
-            </div>
-          </div>
-
-          <div className="border rounded-3 p-3 bg-light mt-3">
-            <h5 className="mb-2">Event Practice Buttons</h5>
-            <p className="text-muted small mb-3">Practice different mouse and keyboard events.</p>
-            <div className="d-flex flex-wrap gap-2">
-              <button className="btn btn-warning" onDoubleClick={handleDoubleClick}>Double Click Me</button>
-              <button className="btn btn-info" onContextMenu={handleRightClick}>Right Click Me</button>
-              <button className="btn btn-danger" onClick={handleClickOrEnter}>Click or Press Enter</button>
-            </div>
-          </div>
-
           <div className="border rounded-3 p-3 bg-light mt-3">
             <h5 className="mb-2">Datepickers</h5>
             <p className="text-muted small mb-3">One with date & time, one date-only and readonly.</p>
@@ -134,6 +132,26 @@ export default function PracticeComponentsPage() {
               </div>
             </div>
           </div>
+
+          <div className="border rounded-3 p-3 bg-light">
+            <h5 className="mb-2">Iframe</h5>
+            <p className="text-muted small mb-3">Embedded page below.</p>
+            <div className="ratio ratio-16x9 border rounded-3 overflow-hidden bg-white">
+              <iframe name="embeddedExample" title="Embedded Example" src="http://localhost:3000" style={{ border: '0' }} allowFullScreen></iframe>
+            </div>
+          </div>
+
+          <div className="border rounded-3 p-3 bg-light mt-3">
+            <h5 className="mb-2">Event Practice Buttons</h5>
+            <p className="text-muted small mb-3">Practice different mouse and keyboard events.</p>
+            <div className="d-flex flex-wrap gap-2">
+              <button id="doubleClickBtn" className="btn btn-warning" onDoubleClick={handleDoubleClick}>Double Click Me</button>
+              <button id="rightClickBtn" className="btn btn-info" onContextMenu={handleRightClick}>Right Click Me</button>
+              <button id="clickOrEnterBtn" className="btn btn-danger" onClick={handleClickOrEnter}>Click or Press Enter</button>
+            </div>
+          </div>
+
+          
         </div>
       </div>
 
@@ -143,14 +161,14 @@ export default function PracticeComponentsPage() {
             <div className="modal-content">
               <div className="modal-header">
                 <h5 className="modal-title">Practice Modal</h5>
-                <button type="button" className="btn-close" aria-label="Close" onClick={() => setShowModal(false)}></button>
+                <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseModal}></button>
               </div>
               <div className="modal-body">
                 <p>This is a simple modal for practice. Add any content you like here.</p>
               </div>
               <div className="modal-footer">
-                <button type="button" className="btn btn-secondary" onClick={() => setShowModal(false)}>Close</button>
-                <button type="button" className="btn btn-primary" onClick={() => setShowModal(false)}>Save changes</button>
+                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>Close</button>
+                <button type="button" className="btn btn-primary" onClick={handleSaveModal}>Save changes</button>
               </div>
             </div>
           </div>
