@@ -84,7 +84,7 @@ export default function UserDetailPage({ user, canEdit }) {
             <h2 className="card-title mb-0">User Details</h2>
             <div className="d-flex gap-2">
               <a className="btn btn-outline-secondary btn-sm" href="/dashboard/users">Back to Users</a>
-              <button type="button" className="btn btn-primary btn-sm" onClick={() => setEditing(true)} disabled={editing}>Edit</button>
+              <button name="editButton" type="button" className="btn btn-primary btn-sm" onClick={() => setEditing(true)} disabled={editing}>Edit</button>
             </div>
           </div>
           {error && <div className="alert alert-danger">{error}</div>}
@@ -187,7 +187,7 @@ export default function UserDetailPage({ user, canEdit }) {
               )}
               {editing && (
                 <div className="mt-3 d-flex gap-2 justify-content-end">
-                  <button className="btn btn-success" onClick={save} disabled={saving}>{saving ? 'Saving...' : 'Save'}</button>
+                  <button id="saveButton" className="btn btn-success" onClick={save} disabled={saving}>{saving ? 'Saving...' : 'Save'}</button>
                   <button className="btn btn-outline-secondary" onClick={() => { setEditing(false); setForm({
                     firstName: userState.firstName || '',
                     lastName: userState.lastName || '',

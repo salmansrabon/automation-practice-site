@@ -15,7 +15,7 @@ export default function AddUserPage() {
     email: '',
     phoneNumber: '',
     password: '',
-    birthdate: '',
+    birthdate: '2000-01-01',
     gender: '',
     district: '',
     bloodGroup: '',
