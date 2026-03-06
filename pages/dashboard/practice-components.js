@@ -1,6 +1,8 @@
 import React, { useState, forwardRef } from 'react';
-import ReactDatePicker from 'react-datepicker';
+import dynamic from 'next/dynamic';
 import DashboardLayout from '../../components/DashboardLayout';
+
+const ReactDatePicker = dynamic(() => import('react-datepicker'), { ssr: false });
 const { getUserFromReq } = require('../../lib/auth');
 
 const pad = (n) => `${n}`.padStart(2, '0');
