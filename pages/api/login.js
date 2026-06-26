@@ -24,5 +24,5 @@ export default async function handler(req, res) {
 
   const token = issueToken(user);
   setAuthCookie(res, token);
-  return res.status(200).json({ message: 'Logged in', user: { firstName: user.firstName, lastName: user.lastName, email: user.email } });
+  return res.status(200).json({ message: 'Logged in', token, user: { firstName: user.firstName, lastName: user.lastName, email: user.email } });
 }
